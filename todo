@@ -1,4 +1,55 @@
-Stuff to Look At:
-    alterNet accuracy is close to 0 >> This most likely is b/c the label keying is messed up
+The labels need two attributes:
+    - is it a letter or a number?
+    - which letter or number is it?
 
-    subNet_outVector is an list of lists of length 1, each of which contains a single float (should just be a list of floats)
+Parent network is comprised of 3 subnetworks:
+1) letters only
+2) identifies letters from numbers (eg. trained on self awareness of uncertainty)
+3) numbers only
+Child network should be identical in number of nodes / layers as the total parent network
+
+Human task equivalent:
+(a) learn what these letters are
+(b) here are some new characters, are they letters?
+    
+    "I think it's a letter"
+    (c1) correct, it is a letter. which letter is it?
+    (c2) wrong, it's not a letter. I (instructor) am not sure what it is. Place it in a category.
+
+    "I think it's not a letter"
+    (d1) correct, it's not a letter. I (instructor) am not sure what it is. Place it in a category.
+    (d2) wrong, it is a letter. which letter is it?
+
+(e) here are some letters and symbols. teach someone else what you've learned
+
+>> The instructor not knowing is analogous to encountering unlabelled data from the world environment
+>> But what is the analogy to knowing whether it is unlabelled or not?
+- eg. here we're explicitly training the discernment network by telling it
+- this is something you've been trained on, this is not
+>> The goal is for it to know for itself, without being trained, whether or not it should be able to give a correct answer
+
+
+First pass, train (1) on letters only
+second pass, mixed.
+ - As input to (2):
+    - Use output vector from (1) (eg. make a judgement on the credibility of the first network)
+    - Combine with direct mnist input
+    - Isn't direct mnist enough to train a letter vs. digit classifier in itself?
+ - if it is number, train (3)
+    - only if (2) classifies it correctly, or regardless?
+    - If regardless, then you train (2) and (3) on the same pass
+    - If not, then (3) might not have enough training samples
+
+    If the idea is to imitate new learning:
+    - eventually replace (3) with an unsupervised learning method (clustering)
+    - inputs to (3) should only come when (2) predicts correctly
+    - when (2) predicts wrong, should it go as 
+
+third pass, train a child network off the outputs of the combined (1, 2, 3) networks
+
+>> Child training should probably be it's own project
+>> can abstract out the earlier processes of building the combined instructor network
+>> Measure the degradation in fidelity across generations
+>> parameters for stubbornness (eg. not listening to the instructor network's feedback)
+>> create several child networks and select the best?
+>> is it possible where the performance increases across generations instead of degrades?

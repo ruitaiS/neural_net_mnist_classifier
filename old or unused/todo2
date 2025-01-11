@@ -1,0 +1,4 @@
+Stuff to Look At:
+    alterNet accuracy is close to 0 >> This most likely is b/c the label keying is messed up
+
+    subNet_outVector is an list of lists of length 1, each of which contains a single float (should just be a list of floats)
