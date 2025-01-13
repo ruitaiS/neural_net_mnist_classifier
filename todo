@@ -2,6 +2,9 @@ The labels need two attributes:
     - is it a letter or a number?
     - which letter or number is it?
 
+
+The original project:
+
 Parent network is comprised of 3 subnetworks:
 1) letters only
 2) identifies letters from numbers (eg. trained on self awareness of uncertainty)
@@ -53,3 +56,19 @@ third pass, train a child network off the outputs of the combined (1, 2, 3) netw
 >> parameters for stubbornness (eg. not listening to the instructor network's feedback)
 >> create several child networks and select the best?
 >> is it possible where the performance increases across generations instead of degrades?
+
+
+>> Main project should really be whether a NN can be trained to identify when another NN is likely to get a wrong answer
+>> Compare it to the success rate of a NN of equal size which is trained on a mixed set
+>> Different ways to quantify "likely to get it wrong":
+    - If a NN is trained on only numbers, can we train another NN to identify what it looks like when it is not given a number?
+        - A letter, or a random squiggle
+    - Alternatively, can we identify when the NN is likely to be wrong, even though it is a number?
+        - 1's and 7's have a higher rate of being wrong (Can graph success rate by number)
+
+How to evaluate the performance of second NN after being trained?
+- Should training set and test set have all the letters? Or should new letters be introduced into the test set?
+- The first instance would likely be overfitting / equivalent to training on a mixed set of letters and numbers
+- By holding back half the alphabet, we introduce new symbols while testing 
+
+>> Major Question: Can a second NN identify what "confusion" in the nodes of the first NN looks like?
